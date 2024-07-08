@@ -1,5 +1,6 @@
 # React + Vite
 
+note.cloud "\n"
 note.cloud is a feature-rich and user-friendly web application built using React.js. It allows users to create, manage, and store notes efficiently. The application leverages Redux Toolkit for state management, Tailwind CSS for styling, and React Router for dynamic page rendering. Additionally, it uses localStorage to synchronize notes, ensuring data persistence across sessions.
 
 Features:
