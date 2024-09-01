@@ -2,8 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import notesRoutes from "./routes/notes";
-import authRoutes from "./routes/auth";
+import notesRoutes from "./routes/notes.js";
+import authRoutes from "./routes/auth.js";
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

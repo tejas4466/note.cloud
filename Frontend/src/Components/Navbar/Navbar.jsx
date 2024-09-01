@@ -71,6 +71,7 @@ function Navbar() {
                 <button
                   className="flex items-center h-full px-4 py-2 lg:py-0 transition duration-300 ease-in-out 
                     hover:bg-[rgb(61,31,139)] hover:rounded-xl"
+
                 >
                   Signup
                 </button>

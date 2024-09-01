@@ -1,6 +1,6 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import User from "../models/user.model.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -46,4 +46,3 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
