@@ -6,9 +6,9 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-[rgb(42,15,103)] flex justify-between items-center p-3 text-white fixed top-0 flex-wrap w-full z-50">
+    <nav className="bg-[rgb(42,15,103)] flex justify-between items-center p-1 text-white fixed top-0 flex-wrap w-full z-50">
       <div className="flex items-center my-auto">
-        <Link to='/'><h1 className="p-2 text-xl font-bold text-white md:text-3xl">note.cloud</h1></Link>
+        <Link to='/'><h1 className="p-2 text-lg font-bold text-white md:text-2xl">note.cloud</h1></Link>
       </div>
       <div className="block lg:hidden">
         <button onClick={() => setIsOpen(!isOpen)} className="flex items-center px-3 py-2 text-white border border-white rounded">
@@ -18,7 +18,7 @@ function Navbar() {
         </button>
       </div>
       <div className={`w-full lg:flex lg:items-center lg:w-auto ${isOpen ? 'block' : 'hidden'}`}>
-        <ul className="flex flex-col flex-wrap items-center justify-center h-full gap-2 pr-2 text-lg lg:flex-row lg:gap-10">
+        <ul className="flex flex-col flex-wrap items-center justify-center h-full gap-2 pr-2 text-md lg:flex-row lg:gap-10">
           <li className="h-full">
             <NavLink
               to="/"

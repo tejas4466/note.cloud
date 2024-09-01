@@ -2,11 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+
 function Home() {
   const notes = useSelector((state) => state.notes.notes);
 
   return (
-    <div className="min-h-screen p-4 pt-24 overflow-auto bg-purple-100 pb-14 dark:bg-gray-800">
+    <div className="min-h-screen p-4 pt-24 overflow-auto bg-white pb-14 dark:bg-gray-800">
+ 
       <h1 className="pb-4 pl-1 text-xl font-medium text-left text-gray-800 md:text-2xl dark:text-white">
         
         {notes.length ? 'Your saved notes' : 'You have no notes'}
