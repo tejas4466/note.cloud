@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { DialogContent, DialogHeader, DialogTitle, DialogClose } from '../ui/dialog';
 
-function Login() {
+function Signup() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
@@ -13,9 +13,17 @@ function Login() {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Login</DialogTitle>
+        <DialogTitle>Signup</DialogTitle>
       </DialogHeader>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <input
+          type="text"
+          placeholder="Name"
+          {...register('name', { required: 'Name is required' })}
+          className="px-4 py-2 border border-gray-300 rounded-md"
+        />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+        
         <input
           type="text"
           placeholder="Username"
@@ -36,14 +44,14 @@ function Login() {
           type="submit"
           className="px-4 py-2 bg-blue-600 text-white rounded-md"
         >
-          Login
+          Signup
         </button>
       </form>
-      <DialogClose className="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+      {/* <DialogClose className="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
         &#x2715;
-      </DialogClose>
+      </DialogClose> */}
     </DialogContent>
   );
 }
 
-export default Login;
+export default Signup;

@@ -1,6 +1,9 @@
 import { Link, NavLink } from 'react-router-dom';
-import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 import { useState } from 'react';
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
+import { Dialog, DialogTrigger } from '../ui/dialog';
+import Login from '../Login/Login'
+import Signup from '../Signup/Signup';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,6 +51,32 @@ function Navbar() {
             >
               Manage
             </NavLink>
+          </li>
+          <li className="h-full">
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  className="flex items-center h-full px-4 py-2 lg:py-0 transition duration-300 ease-in-out 
+                    hover:bg-[rgb(61,31,139)] hover:rounded-xl"
+                >
+                  Login
+                </button>
+              </DialogTrigger>
+              <Login /> 
+            </Dialog>
+          </li>
+          <li className="h-full">
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  className="flex items-center h-full px-4 py-2 lg:py-0 transition duration-300 ease-in-out 
+                    hover:bg-[rgb(61,31,139)] hover:rounded-xl"
+                >
+                  Signup
+                </button>
+              </DialogTrigger>
+              <Signup /> 
+            </Dialog>
           </li>
           <DarkModeToggle />
         </ul>
