@@ -1,29 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { DialogContent, DialogHeader, DialogTitle, DialogClose } from '../ui/dialog';
 import axiosInstance from '@/utils/axiosInstance';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '@/Slices/authSlice';
 
-function Login({ onClose }) { // Accept onClose prop
+function Login({ onClose }) {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const fetchUserData = async (token) => {
+    try {
+      const response = await axiosInstance.get('/api/auth/user', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+      dispatch(login(response.data));
+    } catch (error) {
+      console.log("Failed to fetch user data:", error);
+    }
+  };
 
   const onSubmit = async (data) => {
-    reset(); // Clear the form
+    reset();
     try {
       const response = await axiosInstance.post('/api/auth/login', data);
-      console.log(response);
+      console.log(response.data);
 
-      // Check if the response contains the accessToken
       if (response.data && response.data.token) {
-        // Store the accessToken in localStorage
         localStorage.setItem("token", response.data.token);
-        navigate('/'); // Navigate to home
-        onClose(); // Close the dialog
+        fetchUserData(response.data.token); // Fetch user data after login
+        navigate('/');
+        onClose();
       }
       
     } catch (error) {
-      // Handle error responses
       if (error.response && error.response.data && error.response.data.message) {
         console.log(error.response.data.message);
       } else {
@@ -31,6 +46,13 @@ function Login({ onClose }) { // Accept onClose prop
       }
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserData(token); // Fetch user data if token exists
+    }
+  }, []);
 
   return (
     <DialogContent>
@@ -62,6 +84,7 @@ function Login({ onClose }) { // Accept onClose prop
           Login
         </button>
       </form>
+   
     </DialogContent>
   );
 }

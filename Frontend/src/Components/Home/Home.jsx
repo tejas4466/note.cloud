@@ -3,15 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotes } from '@/Slices/noteSlice'
 
+
 function Home() {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.notes);
   const status = useSelector((state) => state.notes.status);
   const error = useSelector((state) => state.notes.error);
+  const user = useSelector((state) => state.auth.userData);
+  console.log(notes);
+
 
   // Fetch notes when the component mounts
   useEffect(() => {
     if (status === 'idle') {
+      alert("useEffect running")
       dispatch(fetchNotes());
     }
   }, [status, dispatch]);
@@ -37,7 +42,7 @@ function Home() {
             {notes.map((note) => (
               <div
                 key={note.id}
-                className="flex flex-col justify-between p-4 my-auto bg-purple-300 rounded shadow-lg dark:bg-gray-700"
+                className="flex flex-col justify-between p-4 my-auto bg-purple-300 rounded shadow-lg dark:bg-gray-700 hover:scale-105"
               >
                 <p className="text-xl font-semibold text-gray-800 dark:text-white">{note.title}</p>
                 <Link

@@ -10,6 +10,7 @@ const initialState = {
 // Async thunks for CRUD operations
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
   const response = await axiosInstance.get("/api/notes");
+  console.log(response.data);
   return response.data;
 });
 

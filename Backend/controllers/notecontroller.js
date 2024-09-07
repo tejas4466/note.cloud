@@ -27,7 +27,7 @@ export const getNoteById = async (req, res) => {
 export const createNote = async (req, res) => {
   try {
     const newNote = new Note({
-      // user: req.user.id,
+      user: req.user.id,
       title: req.body.title,
       content: req.body.content,
     });
