@@ -12,6 +12,8 @@ import { Provider } from 'react-redux'
 import { store } from './store.js'; 
 import View from './Components/View/View.jsx'
 import Update from './Components/Update/Update.jsx'
+import Login from './Components/Login/Login.jsx'
+import Signup from './Components/Signup/Signup'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -21,7 +23,9 @@ const router=createBrowserRouter(
       <Route path='manage' element={<Manage/>}/>
       <Route path='view/:id' element={<View/>}/> 
       <Route path='update/:id' element={<Update/>}/>
-      </Route>
+      <Route path='login' element={<Login/>}/>
+      <Route path='signup' element={<Signup/>}/>
+</Route>
   )
 )
 

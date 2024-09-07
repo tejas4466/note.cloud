@@ -10,18 +10,19 @@ function Signup({ onClose }) { // Add onClose prop
 
   const onSubmit = async (data) => {
     reset(); // Clear the form
-    onClose(); // Close the dialog
+    // onClose(); // Close the dialog
     try {
       const response = await axiosInstance.post('/api/auth/register', data);
       console.log(response);
 
-      if (response.data && response.data.error) {
-        return;
-      }
+      // if (response.data && response.data.error) {
+      //   return;
+      // }
 
-      if (response.data && response.data.accessToken) {
-        localStorage.setItem("token", response.data.accessToken);
+      if (response.data) {
+        // localStorage.setItem("token", response.data.accessToken);
         navigate('/'); // Navigate to home
+        onClose(); // Close the dialog
       }
       
     } catch (error) {

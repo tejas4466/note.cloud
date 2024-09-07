@@ -9,22 +9,21 @@ function Login({ onClose }) { // Accept onClose prop
   const navigate = useNavigate(); // Initialize navigate
 
   const onSubmit = async (data) => {
+    reset(); // Clear the form
     try {
       const response = await axiosInstance.post('/api/auth/login', data);
       console.log(response);
 
-      if (response.data && response.data.error) {
-        return;
-      }
-
-      if (response.data && response.data.accessToken) {
-        localStorage.setItem("token", response.data.accessToken);
-        reset(); // Clear the form
-        onClose(); // Close the dialog
+      // Check if the response contains the accessToken
+      if (response.data && response.data.token) {
+        // Store the accessToken in localStorage
+        localStorage.setItem("token", response.data.token);
         navigate('/'); // Navigate to home
+        onClose(); // Close the dialog
       }
       
     } catch (error) {
+      // Handle error responses
       if (error.response && error.response.data && error.response.data.message) {
         console.log(error.response.data.message);
       } else {
@@ -37,7 +36,7 @@ function Login({ onClose }) { // Accept onClose prop
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Login</DialogTitle>
-        <DialogClose onClick={onClose} /> {/* Add close button */}
+        {/* <DialogClose onClick={onClose} /> Add close button */}
       </DialogHeader>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <input

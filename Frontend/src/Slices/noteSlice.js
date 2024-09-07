@@ -1,43 +1,76 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from "../utils/axiosInstance";
 
 const initialState = {
-  notes: JSON.parse(localStorage.getItem("notes")) || [],
+  notes: [],
+  status: "idle",
+  error: null,
 };
 
+// Async thunks for CRUD operations
+export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
+  const response = await axiosInstance.get("/api/notes");
+  return response.data;
+});
+
+export const addNote = createAsyncThunk("notes/addNote", async (newNote) => {
+  const response = await axiosInstance.post("/api/notes", newNote);
+  return response.data;
+});
+
+export const deleteNote = createAsyncThunk(
+  "notes/deleteNote",
+  async (noteId) => {
+    await axiosInstance.delete(`/api/notes/${noteId}`);
+    return noteId;
+  }
+);
+
+export const updateNote = createAsyncThunk(
+  "notes/updateNote",
+  async (updatedNote) => {
+    const { id, title, content } = updatedNote;
+    const response = await axiosInstance.put(`/api/notes/${id}`, {
+      title,
+      content,
+    });
+    return response.data;
+  }
+);
+
+// Slice
 export const noteSlice = createSlice({
   name: "note",
   initialState,
-  reducers: {
-    addNote: (state, action) => {
-      const { title, content } = action.payload;
-      const note = {
-        id: nanoid(),
-        title: title,
-        content: content,
-      };
-      state.notes.push(note);
-      localStorage.setItem("notes", JSON.stringify(state.notes));
-    },
-
-    deleteNote: (state, action) => {
-      state.notes = state.notes.filter((note) => note.id !== action.payload);
-      localStorage.setItem("notes", JSON.stringify(state.notes));
-    },
-
-    updateNote: (state, action) => {
-      const { id, title, content } = action.payload;
-      const noteIndex = state.notes.findIndex((note) => note.id === id);
-      if (noteIndex !== -1 && title) {
-        state.notes[noteIndex].title = title;
-      }
-      if (noteIndex !== -1 && content) {
-        state.notes[noteIndex].content = content;
-      }
-      localStorage.setItem("notes", JSON.stringify(state.notes));
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchNotes.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchNotes.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.notes = action.payload;
+      })
+      .addCase(fetchNotes.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(addNote.fulfilled, (state, action) => {
+        state.notes.push(action.payload);
+      })
+      .addCase(deleteNote.fulfilled, (state, action) => {
+        state.notes = state.notes.filter((note) => note.id !== action.payload);
+      })
+      .addCase(updateNote.fulfilled, (state, action) => {
+        const { id, title, content } = action.payload;
+        const existingNote = state.notes.find((note) => note.id === id);
+        if (existingNote) {
+          existingNote.title = title;
+          existingNote.content = content;
+        }
+      });
   },
 });
 
-export const { addNote, deleteNote, updateNote } = noteSlice.actions;
 export default noteSlice.reducer;
