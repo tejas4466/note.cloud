@@ -62,11 +62,12 @@ export const deleteNote = createAsyncThunk(
 export const updateNote = createAsyncThunk(
   "notes/updateNote",
   async (updatedNote, { rejectWithValue }) => {
-    const { id, title, content } = updatedNote; // Destructure updated note object
+    const { id, title, content, user } = updatedNote; // Destructure updated note object
     try {
       const response = await axiosInstance.put(`/api/notes/${id}`, {
         title,
         content,
+        user,
       });
       return response.data;
     } catch (error) {

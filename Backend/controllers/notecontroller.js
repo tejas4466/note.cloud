@@ -65,15 +65,27 @@ export const createNote = async (req, res) => {
 // Update an existing note
 export const updateNote = async (req, res) => {
   try {
-    const note = await Note.findById(req.params.id);
-    if (!note || note.user.toString() !== req.user.id) {
-      return res.status(404).json({ message: "Note not found" });
+    // Update the note directly
+    const result = await Note.updateOne(
+      { _id: req.params.id, user: req.user.id }, // Find the note by ID and ensure it belongs to the user
+      {
+        $set: {
+          title: req.body.title,
+          content: req.body.content,
+          user: req.user.id,
+        },
+      } // Update the note fields
+    );
+
+    // Check if the note was found and updated
+    if (result.nModified === 0) {
+      return res
+        .status(404)
+        .json({ message: "Note not found or unauthorized" });
     }
 
-    note.title = req.body.title;
-    note.content = req.body.content;
-
-    const updatedNote = await note.save();
+    // Fetch the updated note to send it in the response
+    const updatedNote = await Note.findById(req.params.id);
     res.json(updatedNote);
   } catch (err) {
     res.status(500).json({ message: err.message });

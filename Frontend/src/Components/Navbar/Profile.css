@@ -1,0 +1,16 @@
+/* Profile.css */
+.transition-transform {
+  transition: transform 0.2s ease-in-out;
+}
+
+.transition-opacity {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.rounded {
+  border-radius: 0.375rem; /* Tailwind CSS class for rounded corners */
+}
+
+.shadow-xl {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Tailwind CSS class for shadow */
+}

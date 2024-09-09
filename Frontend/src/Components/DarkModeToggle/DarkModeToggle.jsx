@@ -16,7 +16,7 @@ function DarkModeToggle() {
     <DarkModeSwitch
       checked={!darkMode} // Invert the checked property
       onChange={handleToggle}
-      size={30}
+      size={24}
       style={{ display: 'flex', alignItems: 'center' }}
       moonColor="white" // Keep moon color white
       sunColor="white" // Keep sun color white

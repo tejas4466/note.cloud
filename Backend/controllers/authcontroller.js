@@ -72,3 +72,13 @@ export const getUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// Logout a user
+export const logoutUser = (req, res) => {
+  try {
+    // Clear the token on the client-side (handled by the front end)
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

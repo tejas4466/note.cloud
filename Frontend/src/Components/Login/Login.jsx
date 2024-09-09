@@ -7,6 +7,8 @@ import Signup from '../Signup/Signup';
 import { Dialog, DialogTrigger } from '../ui/dialog';
 
 function Login() {
+  console.log("Login component rendered"); // Debugging log
+
   const [isModalOpen, setIsModalOpen] = useState(false); // State to handle modal visibility
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const navigate = useNavigate();

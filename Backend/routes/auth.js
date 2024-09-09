@@ -3,6 +3,7 @@ import {
   registerUser,
   loginUser,
   getUser,
+  logoutUser,
 } from "../controllers/authcontroller.js";
 
 const router = express.Router();
@@ -15,5 +16,7 @@ router.post("/login", loginUser);
 
 // Get user route
 router.get("/currentUser", getUser);
+
+router.post("/logout", logoutUser);
 
 export default router;

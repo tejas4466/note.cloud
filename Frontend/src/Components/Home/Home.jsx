@@ -60,7 +60,7 @@ function Home() {
       {userStatus === 'succeeded' && notesStatus === 'succeeded' && (
         <>
           <div className='flex justify-between mb-6'>
-            <h1 className="pb-4 pl-1 mt-10 text-xl font-medium text-left text-gray-800 md:text-2xl dark:text-white">
+            <h1 className="pl-1 mt-2 text-xl font-medium text-left text-gray-800 md:text-2xl dark:text-white">
               {notes.length ? 'Your saved notes' : 'You have no notes'}
             </h1>
           </div>
@@ -70,12 +70,12 @@ function Home() {
             {notes.map((note) => (
               <div
                 key={note._id}
-                className="flex flex-col justify-between p-4 my-auto bg-purple-300 rounded shadow-lg cursor-pointer dark:bg-gray-700 hover:scale-105"
+                className="flex flex-col justify-between p-4 my-auto bg-purple-200 rounded shadow-lg cursor-pointer dark:bg-gray-700 hover:scale-105"
               >
                 <p className="overflow-hidden text-xl font-semibold text-gray-800 dark:text-white text-ellipsis">{note.title}</p>
                 <Link
                   to={`/view/${note._id}`}
-                  className="block px-6 py-2 mt-4 text-center text-white bg-purple-500 rounded hover:bg-purple-700 dark:bg-purple-800 dark:hover:bg-purple-600"
+                  className="block px-6 py-2 mt-4 text-center text-white bg-purple-700 rounded hover:bg-purple-600 dark:bg-purple-800 dark:hover:bg-purple-600"
                 >
                   View
                 </Link>
@@ -89,7 +89,7 @@ function Home() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <FaCirclePlus 
-            className='fixed w-16 h-16 text-purple-900 rounded-full cursor-pointer bottom-6 right-6 hover:scale-105'
+            className='fixed w-12 h-12 text-purple-900 rounded-full cursor-pointer bottom-6 right-6 hover:scale-105'
             onClick={handleCreateNote}
           />
         </DialogTrigger>

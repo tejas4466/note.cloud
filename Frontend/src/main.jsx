@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client';  
 import './index.css';
 import Home from './Components/Home/Home.jsx';
 import Navbar from './Components/Navbar/Navbar.jsx';
@@ -12,18 +12,19 @@ import { store, persistor } from './store.js';  // Import persistor
 import View from './Components/View/View.jsx';
 import Update from './Components/Update/Update.jsx';
 import Login from './Components/Login/Login.jsx';
-import Signup from './Components/Signup/Signup.jsx';
+// import Signup from './Components/Signup/Signup.jsx';
 import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoute from './Components/PrivateRoute.jsx';
 
 // Define your routes
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
-      <Route path='' element={<Home />} />
-      <Route path='view/:_id' element={<View />} /> 
-      <Route path='update/:id' element={<Update />} />
       <Route path='login' element={<Login />} />
-      <Route path='signup' element={<Signup />} />
+      <Route path='' element={<PrivateRoute><Home /></PrivateRoute>} />
+      <Route path='view/:_id' element={<PrivateRoute><View /></PrivateRoute>} /> 
     </Route>
   )
 );
@@ -32,7 +33,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
-        <RouterProvider router={router} />
+        <>
+          <RouterProvider router={router} />
+          <ToastContainer />
+        </>
       </React.StrictMode>
     </PersistGate>
   </Provider>
