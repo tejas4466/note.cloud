@@ -25,24 +25,35 @@ export const registerUser = async (req, res) => {
   }
 };
 
-//Login a user
+// Login a user
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
+    // Find user by username
     const user = await User.findOne({ username });
     if (!user) return res.status(400).json({ message: "User not found" });
 
+    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
 
+    // Generate JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    res.json({ token });
+    // Return token and user details
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+      },
+    });
   } catch (err) {
+    // Handle any errors that occur
     res.status(500).json({ message: err.message });
   }
 };

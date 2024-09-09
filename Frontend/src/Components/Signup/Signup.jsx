@@ -35,12 +35,14 @@ function Signup({ onClose }) { // Add onClose prop
   };
 
   return (
-    <DialogContent>
+    <DialogContent className="p-8">
       <DialogHeader>
-        <DialogTitle className="text-center">Signup</DialogTitle>
+        <DialogTitle className="mb-4 text-2xl text-center">Create Account</DialogTitle>
       </DialogHeader>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3"> 
+        <label htmlFor="username" className="font-medium">Create a Username</label>
         <input
+          id="username"
           type="text"
           placeholder="Username"
           {...register('username', { required: 'Username is required' })}
@@ -48,7 +50,9 @@ function Signup({ onClose }) { // Add onClose prop
         />
         {errors.username && <p className="text-red-500">{errors.username.message}</p>}
 
+        <label htmlFor="password" className="mt-4 font-medium">Create a Password</label>
         <input
+          id="password"
           type="password"
           placeholder="Password"
           {...register('password', { required: 'Password is required' })}
@@ -58,7 +62,7 @@ function Signup({ onClose }) { // Add onClose prop
 
         <button
           type="submit"
-          className="px-4 py-2 text-white bg-blue-600 rounded-md"
+          className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700"
         >
           Register
         </button>

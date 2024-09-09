@@ -1,12 +1,36 @@
 import Note from "../models/note.model.js";
 
 // Get all notes
+
 export const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find({ user: req.user.id });
-    res.json(notes);
+    // Extract userId from query parameters or use the authenticated user's ID
+    const { userId } = req.query;
+
+    // Use authenticated user's ID if userId is not provided
+    const filterUserId = userId || req.user?.id;
+
+    // Check if userId is present
+    if (!filterUserId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    // Fetch notes based on the user ID
+    const notes = await Note.find({ user: filterUserId });
+
+    // Send an empty array if no notes were found
+    if (!notes.length) {
+      return res.status(200).json([]); // Return empty array with 200 status
+    }
+
+    // Send the fetched notes if available
+    res.status(200).json(notes);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    // Log the error for debugging
+    console.error(err.message);
+
+    // Send a generic error message to the client
+    res.status(500).json({ message: "An error occurred while fetching notes" });
   }
 };
 
@@ -59,14 +83,13 @@ export const updateNote = async (req, res) => {
 // Delete a note
 export const deleteNote = async (req, res) => {
   try {
-    const note = await Note.findById(req.params.id);
-    if (!note || note.user.toString() !== req.user.id) {
+    const note = await Note.findByIdAndDelete(req.params.id);
+    if (!note) {
       return res.status(404).json({ message: "Note not found" });
     }
-
-    await note.remove();
-    res.json({ message: "Note removed" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(200).json({ message: "Note deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 };

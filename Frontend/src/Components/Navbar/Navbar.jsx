@@ -2,16 +2,16 @@ import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 import { Dialog, DialogTrigger } from '../ui/dialog';
-import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
+import Create from '../Create/Create';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);  // State for mobile menu
   const [isLoginOpen, setIsLoginOpen] = useState(false);  // State for Login dialog
-  const [isSignupOpen, setIsSignupOpen] = useState(false);  // State for Signup dialog
+  const [isCreateOpen, setIsCreateOpen] = useState(false);  // State for Create dialog
 
   const handleCloseLogin = () => setIsLoginOpen(false);
-  const handleCloseSignup = () => setIsSignupOpen(false);
+  const handleCloseCreate = () => setIsCreateOpen(false);
 
   return (
     <nav className="bg-[rgb(42,15,103)] flex justify-between items-center p-1 text-white fixed top-0 flex-wrap w-full z-50">
@@ -38,49 +38,31 @@ function Navbar() {
           </li>
           <li className="h-full">
             <NavLink
-              to="/create"
+              to="/login"
               className="flex items-center h-full px-4 py-2 lg:py-0 transition duration-300 ease-in-out hover:bg-[rgb(61,31,139)] hover:rounded-xl"
               onClick={() => setIsMenuOpen(false)}
             >
-              Create
+              Login
             </NavLink>
           </li>
           <li className="h-full">
-            <NavLink
-              to="/manage"
-              className="flex items-center h-full px-4 py-2 lg:py-0 transition duration-300 ease-in-out hover:bg-[rgb(61,31,139)] hover:rounded-xl"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Manage
-            </NavLink>
+           
           </li>
           <li className="h-full">
-            <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
+            <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
               <DialogTrigger asChild>
                 <button 
                   className="flex items-center h-full px-4 py-2 lg:py-0 transition duration-300 ease-in-out hover:bg-[rgb(61,31,139)] hover:rounded-xl"
-                  onClick={() => setIsLoginOpen(true)}
+                  onClick={() => setIsCreateOpen(true)}
                 >
-                  Login
+                  Create
                 </button>
               </DialogTrigger>
-              <Login onClose={handleCloseLogin} />
+              <Create onClose={handleCloseCreate} />
             </Dialog>
           </li>
-          <li className="h-full">
-            <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
-              <DialogTrigger asChild>
-                <button 
-                  className="flex items-center h-full px-4 py-2 lg:py-0 transition duration-300 ease-in-out hover:bg-[rgb(61,31,139)] hover:rounded-xl"
-                  onClick={() => setIsSignupOpen(true)}
-                >
-                  Signup
-                </button>
-              </DialogTrigger>
-              <Signup onClose={handleCloseSignup} />
-            </Dialog>
-          </li>
-          <DarkModeToggle />
+          <DarkModeToggle/>
+          {/* <DarkModeSwitch/> */}
         </ul>
       </div>
     </nav>
