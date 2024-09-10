@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { DialogContent, DialogHeader, DialogTitle, DialogClose } from '../ui/dialog';
+import { DialogContent, DialogHeader, DialogTitle} from '../ui/dialog';
 import axiosInstance from '@/utils/axiosInstance';
 import { useNavigate } from 'react-router-dom'; // Import navigate
 
@@ -35,12 +35,12 @@ function Signup({ onClose }) { // Add onClose prop
   };
 
   return (
-    <DialogContent className="p-8">
+    <DialogContent className="w-11/12 p-8 bg-white rounded-sm">
       <DialogHeader>
-        <DialogTitle className="mb-4 text-2xl text-center">Create Account</DialogTitle>
+        <DialogTitle className="mb-4 text-2xl text-center text-black">Create Account</DialogTitle>
       </DialogHeader>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3"> 
-        <label htmlFor="username" className="font-medium">Create a Username</label>
+        <label htmlFor="username" className="font-medium text-black">Create a Username</label>
         <input
           id="username"
           type="text"
@@ -50,7 +50,7 @@ function Signup({ onClose }) { // Add onClose prop
         />
         {errors.username && <p className="text-red-500">{errors.username.message}</p>}
 
-        <label htmlFor="password" className="mt-4 font-medium">Create a Password</label>
+        <label htmlFor="password" className="mt-4 font-medium text-black">Create a Password</label>
         <input
           id="password"
           type="password"
@@ -62,7 +62,7 @@ function Signup({ onClose }) { // Add onClose prop
 
         <button
           type="submit"
-          className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+          className="px-4 py-2 mt-4 text-white bg-[rgb(46,24,97)] hover:bg-[rgb(64,32,128)]"
         >
           Register
         </button>

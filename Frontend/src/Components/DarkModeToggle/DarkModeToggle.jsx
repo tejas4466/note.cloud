@@ -16,10 +16,11 @@ function DarkModeToggle() {
     <DarkModeSwitch
       checked={!darkMode} // Invert the checked property
       onChange={handleToggle}
-      size={24}
+      size={28}
       style={{ display: 'flex', alignItems: 'center' }}
-      moonColor="white" // Keep moon color white
-      sunColor="white" // Keep sun color white
+      moonColor="black" // Keep moon color white
+      sunColor="black" // Keep sun color white
+      className='w-6 h-6'
     />
   );
 }

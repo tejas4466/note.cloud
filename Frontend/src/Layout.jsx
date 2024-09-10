@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import Navbar from './Components/Navbar/Navbar';
-import Footer from './Components/Footer/Footer';
 import { Outlet } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from './Slices/authSlice';
+import Sidebar from './Components/Sidebar/Sidebar';
 
 function Layout() {
   const darkMode = useSelector((state) => state.ui.darkMode);
@@ -33,7 +33,7 @@ const handleLogout = () => {
     <>
       <Navbar user={user} handleLogout={handleLogout} />
       <Outlet />
-      {/* <Footer /> */}
+      <Sidebar/>
     </>
   );
 }

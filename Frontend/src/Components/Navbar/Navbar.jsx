@@ -24,13 +24,14 @@ function Navbar({ user, handleLogout }) {
   // Navigation items with conditional rendering based on authStatus
   const navItems = [
     { name: 'Home', slug: '/', active: authStatus }, // Home should always be visible
-    { name: 'Create',  active: authStatus }, // Create only when logged in
+    { name: 'Create', active: authStatus }, // Create only when logged in
+    { name: 'About', slug: '/about', active: !authStatus }, // About only when not logged in
     { name: 'Login', slug: '/login', active: !authStatus }, // Login only when not logged in
   ];
 
   return (
     <nav className="bg-[rgb(42,15,103)] text-white fixed top-0 w-full z-50 shadow-md">
-      <div className="flex items-center justify-between px-4 py-3">
+      <div className="flex items-center justify-between px-4 py-2">
         {/* Logo */}
         <div>
           <Link to='/'>
@@ -45,31 +46,53 @@ function Navbar({ user, handleLogout }) {
           </button>
         </div>
 
-        {/* Desktop Menu & Mobile Dropdown */}
-        <ul
-          className={`fixed top-0 right-0 w-40 bg-[rgb(42,15,103)] text-white h-full md:static md:flex md:w-auto md:h-auto transition-transform duration-300 ease-in-out ${
-            isMenuOpen ? 'block' : 'hidden'
-          } z-50 md:z-0`}
-        >
-          {isMenuOpen && (
-            <li className="absolute top-3 right-3 md:hidden">
-              <button onClick={toggleMenu} className="text-white">
-                <FaTimes size={24} />
-              </button>
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex md:items-center md:ml-auto">
+          {navItems.map(
+            (item) =>
+              item.active && (
+                <li key={item.name} className="flex text-center md:ml-4">
+                  <button
+                    onClick={() => navigate(item.slug)}
+                    className="text-lg transition duration-300 ease-in-out hover:underline"
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              )
+          )}
+
+          {/* Conditional Profile component rendering */}
+          {authStatus && (
+            <li className="md:ml-4">
+              <Profile user={user} handleLogout={handleLogout}/>
             </li>
           )}
 
-          <div className={`flex flex-col md:flex-row mt-12 md:mt-0 md:items-center md:ml-auto`}>
+        
+        </ul>
+
+        {/* Mobile Dropdown Menu */}
+        <div
+          className={`fixed top-0 right-0 w-40 h-full bg-[rgb(42,15,103)] text-white transition-transform duration-300 ease-in-out ${
+            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          } z-50 flex flex-col items-center`}
+        >
+          <button onClick={toggleMenu} className="absolute text-white top-3 right-3">
+            <FaTimes size={24} />
+          </button>
+
+          <ul className="flex flex-col items-center mt-16 space-y-4">
             {navItems.map(
               (item) =>
                 item.active && (
-                  <li key={item.name} className="mt-2 md:mt-0 md:ml-4">
+                  <li key={item.name} className="w-full text-center">
                     <button
                       onClick={() => {
                         setIsMenuOpen(false); // Close menu on navigation
                         navigate(item.slug);
                       }}
-                      className="block px-1 transition duration-300 ease-in-out text-md hover:underline"
+                      className="block text-lg transition duration-300 ease-in-out hover:underline"
                     >
                       {item.name}
                     </button>
@@ -79,17 +102,17 @@ function Navbar({ user, handleLogout }) {
 
             {/* Conditional Profile component rendering */}
             {authStatus && (
-              <li className="mt-2 md:ml-4 md:mt-0">
+              <li className="w-full text-center">
                 <Profile user={user} handleLogout={handleLogout} />
               </li>
             )}
+          </ul>
 
-            {/* Dark Mode Toggle */}
-            {/* <li className="flex items-center mt-2 md:ml-4 md:mt-0">
-              <DarkModeToggle />
-            </li> */}
+          {/* Footer Text */}
+          <div className="absolute w-full text-xl font-bold text-center text-gray-200 bottom-4">
+            <h1>@note.cloud</h1>
           </div>
-        </ul>
+        </div>
       </div>
     </nav>
   );

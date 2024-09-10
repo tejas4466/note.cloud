@@ -54,28 +54,28 @@ function Home() {
       )}
       {(userStatus === 'failed' || notesStatus === 'failed') && (
         <p className="text-xl font-medium text-red-600 dark:text-red-400">
-          {userStatus === 'failed' ? `Failed to load user: ${userError.message || JSON.stringify(userError)}` : `Failed to load notes: ${notesError.message || JSON.stringify(notesError)}`}
+          {userStatus === 'failed' ? `Failed to load user: ${userError || JSON.stringify(userError)}` : `Failed to load notes: ${notesError.message || JSON.stringify(notesError)}`}
         </p>
       )}
       {userStatus === 'succeeded' && notesStatus === 'succeeded' && (
         <>
           <div className='flex justify-between mb-6'>
-            <h1 className="pl-1 mt-2 text-xl font-medium text-left text-gray-800 md:text-2xl dark:text-white">
+            <h1 className="w-full pt-4 text-3xl font-semibold text-center underline gray-800 dark:text-white sm:text-3xl md:text-4xl lg:text-4xl decoration-[rgb(42,15,103)] dark:decoration-[rgb(255,255,255)]">
               {notes.length ? 'Your saved notes' : 'You have no notes'}
             </h1>
           </div>
 
           {/* Display notes */}
-          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 mt-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {notes.map((note) => (
               <div
                 key={note._id}
-                className="flex flex-col justify-between p-4 my-auto bg-purple-200 rounded shadow-lg cursor-pointer dark:bg-gray-700 hover:scale-105"
+                className="flex flex-col justify-between p-4 my-auto bg-purple-200 rounded shadow-lg cursor-pointer dark:bg-gray-700 dark:opacity-90 hover:shadow-lg hover:shadow-[rgb(74,52,125)] dark:hover:shadow-lg dark:hover:shadow-black"
               >
                 <p className="overflow-hidden text-xl font-semibold text-gray-800 dark:text-white text-ellipsis">{note.title}</p>
                 <Link
                   to={`/view/${note._id}`}
-                  className="block px-6 py-2 mt-4 text-center text-white bg-purple-700 rounded hover:bg-purple-600 dark:bg-purple-800 dark:hover:bg-purple-600"
+                  className="block px-6 py-2 mt-4 text-center text-white  rounded hover:bg-[rgb(44,17,106)] bg-[rgb(42,15,103)] dark:bg-purple-800 dark:hover:bg-purple-600"
                 >
                   View
                 </Link>
@@ -89,7 +89,7 @@ function Home() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <FaCirclePlus 
-            className='fixed w-12 h-12 text-purple-900 rounded-full cursor-pointer bottom-6 right-6 hover:scale-105'
+            className='fixed w-16 h-16 text-[rgb(42,15,103)] rounded-full cursor-pointer bottom-4 right-4 hover:scale-105'
             onClick={handleCreateNote}
           />
         </DialogTrigger>

@@ -31,17 +31,45 @@ function View() {
     try {
       await dispatch(deleteNote(_id)).unwrap();
       toast.success('Note deleted successfully!', {
-        position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: false,
+        position: 'bottom-left',
+        autoClose: 1000,
+        hideProgressBar: true,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
-        progress: undefined,
+        progress: false,
+        style: {
+          fontSize: '1rem',
+          width: '200px',
+          color: 'black',
+          backgroundColor: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '46px',
+        },
       });
       navigate('/'); // Redirect to home page after deletion
     } catch (error) {
-      toast.error('Failed to delete note.');
+      toast.error('Failed to delete note.',{
+        position: 'bottom-left',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: false,
+        style: {
+          fontSize: '1rem',
+          width: '200px',
+          color: 'black',
+          backgroundColor: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '46px',
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -60,16 +88,44 @@ function View() {
     const shareableLink = `${window.location.origin}/view/${_id}`;
     navigator.clipboard.writeText(shareableLink).then(() => {
       toast.success('Note link copied to clipboard!', {
-        position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: false,
+        position: 'bottom-left',
+        autoClose: 1000,
+        hideProgressBar: true,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
-        progress: undefined,
+        progress: false,
+        style: {
+          fontSize: '1rem',
+          width: '200px',
+          color: 'black',
+          backgroundColor: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '46px',
+        },
       });
     }).catch((error) => {
-      toast.error('Failed to copy link.');
+      toast.error('Failed to copy link.',{
+        position: 'bottom-left',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: false,
+        style: {
+          fontSize: '1rem',
+          width: '200px',
+          color: 'black',
+          backgroundColor: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '46px',
+        },
+      });
     });
   };
 
@@ -79,22 +135,23 @@ function View() {
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen gap-6 p-4 py-24 bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-4xl p-6 text-left rounded-lg shadow-lg dark:bg-gray-700 h-[80vh] overflow-auto">
+      <div className="w-full max-w-4xl p-6 text-left rounded-lg shadow-2xl  h-[80vh] overflow-auto">
         <div className="flex justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+            <h1 className="text-xl font-bold text-gray-800 sm:text-2xl dark:text-white">
               {note.title}
             </h1>
             {userData && (
-              <p className="mt-1 text-sm font-medium text-blue-800 dark:text-gray-400">
-                Created by {userData.username}
+              <p className="mt-1 text-xs font-medium text-blue-800 sm:text-sm dark:text-gray-400">
+                Created by {userData.username}<br/>
+                {new Date(note.createdAt).toLocaleDateString()}
               </p>
             )}
           </div>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-4">
             {/* Share Icon */}
             <GiShare 
-              className="text-3xl text-purple-900 cursor-pointer hover:scale-110"
+              className="text-xl text-purple-900 cursor-pointer sm:text-2xl hover:scale-110"
               onClick={handleShare}
             />
 
@@ -102,7 +159,7 @@ function View() {
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
               <DialogTrigger asChild>
                 <FaEdit
-                  className="text-3xl text-yellow-400 cursor-pointer hover:scale-110"
+                  className="text-xl text-yellow-400 cursor-pointer sm:text-2xl hover:scale-110"
                   onClick={handleEdit}
                 />
               </DialogTrigger>
@@ -119,19 +176,19 @@ function View() {
             <AlertDialog open={isAlertDialogOpen} onOpenChange={setIsAlertDialogOpen}>
               <AlertDialogTrigger asChild>
                 <RiDeleteBin6Fill
-                  className="text-3xl text-red-700 cursor-pointer hover:scale-110"
+                  className="text-xl text-red-600 cursor-pointer sm:text-2xl hover:scale-110"
                 />
               </AlertDialogTrigger>
-              <AlertDialogContent>
+              <AlertDialogContent className='w-11/12 rounded-sm'>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you sure you want to delete this note?</AlertDialogTitle>
-                  <AlertDialogDescription>
+                  <AlertDialogDescription className='text-black'>
                     This action cannot be undone. Once deleted, your note will be lost.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete} className="bg-red-700 hover:bg-red-600">
+                  <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
                     Delete
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -139,7 +196,7 @@ function View() {
             </AlertDialog>
           </div>
         </div>
-        <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
+        <p className="mt-4 text-sm text-gray-700 sm:text-lg dark:text-gray-300">
           {note.content}
         </p>
       </div>

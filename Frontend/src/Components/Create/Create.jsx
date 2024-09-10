@@ -35,36 +35,46 @@ function Create({ existingNote, onNoteAdded }) {
         // Update existing note
         await dispatch(updateNote({ ...noteData, id: existingNote._id })).unwrap();
         toast.success('Note updated successfully!', {
-          position: window.innerWidth > 768 ? 'top-right' : 'bottom-center', // Position based on screen width (768px is a common breakpoint for tablets)
-          autoClose: 2000,
-          hideProgressBar: false,
+          position: 'bottom-left',
+          autoClose: 1000,
+          hideProgressBar: true,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
-          progress: undefined,
-          // className: `
-          //   text-sm sm:text-base md:text-lg  // Adjust text size based on screen width
-          //   p-2 sm:p-4 md:p-6               // Adjust padding based on screen width
-          //   bg-gray-100 dark:bg-gray-800    // Background color for both light and dark mode
-          //   text-gray-800 dark:text-gray-200 // Text color for both light and dark mode
-          //   rounded-lg shadow-lg            // Add rounded corners and a shadow
-          //   max-w-xs sm:max-w-md md:max-w-lg // Set maximum width to handle larger screen sizes
-          //   m-2                             // Add margin to prevent overlap with screen edges
-          // `,
-          // bodyClassName: 'flex items-center justify-between', // Additional styling for inner content
+          progress: false,
+          style: {
+            fontSize: '1rem',
+            width: '200px',
+            color: 'black',
+            backgroundColor: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '46px',
+          },
         });
         
       } else {
         // Add new note
         await dispatch(addNote(noteData)).unwrap();
         toast.success('Note added successfully!', {
-          position: 'top-right',
-          autoClose: 2000,
-          hideProgressBar: false,
+          position: 'bottom-left',
+          autoClose: 1000,
+          hideProgressBar: true,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
-          progress: undefined,
+          progress: false,
+          style: {
+            fontSize: '1rem',
+            width: '200px',
+            color: 'black',
+            backgroundColor: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '46px',
+          },
         });
       }
 
@@ -86,13 +96,13 @@ function Create({ existingNote, onNoteAdded }) {
   };
 
   return (
-    <DialogContent className="w-full h-[90vh]">
+    <DialogContent className="w-11/12 h-[90vh] dark:bg-gray-100 rounded">
       <DialogHeader>
-        <DialogTitle className="text-2xl text-center">
+        <DialogTitle className="text-2xl text-center dark:text-gray-200">
           {existingNote ? 'Update Note' : 'Create a Note'}
         </DialogTitle>
       </DialogHeader>
-      <form onSubmit={handleSubmit(onSubmit)} className="dark:bg-gray-800">
+      <form onSubmit={handleSubmit(onSubmit)} className="p-0 rounded-lg sm:p-6 md:p-2 dark:bg-gray-600">
         <div className="mb-6">
           <label htmlFor="title" className="block mb-2 font-bold text-gray-700 dark:text-gray-300">
             Title:
@@ -101,7 +111,7 @@ function Create({ existingNote, onNoteAdded }) {
             type="text" 
             id="title" 
             {...register('title', { required: 'Title is required' })}
-            className="w-full p-3 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 sm:p-4"
+            className="w-full p-3 border-2 rounded dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 sm:p-4"
             placeholder="Give a title to your note"
           />
           {errors.title && <p className="text-red-500">{errors.title.message}</p>}
@@ -120,7 +130,7 @@ function Create({ existingNote, onNoteAdded }) {
         </div>
         <div className="flex justify-center">
           <button
-            className="w-full px-4 py-2 text-white bg-purple-700 rounded hover:bg-purple-600 dark:bg-purple-700 dark:hover:bg-purple-800 sm:px-6 sm:py-3"
+            className="w-full px-4 py-2 text-white bg-[rgb(42,13,108)] rounded hover:bg-[rgb(51,14,137)] dark:bg-purple-700 dark:hover:bg-purple-800 sm:px-6 sm:py-3"
             type="submit"
           >
             {existingNote ? 'Save Changes' : 'Add Note'}
