@@ -10,11 +10,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// Middleware for CORS
 app.use(
   cors({
-    origin: ["https://note-cloud-frontend-alpha.vercel.app"],
-    credentials: true,
+    origin: "https://note-cloud-frontend-alpha.vercel.app", // Ensure this matches your frontend URL
+    methods: "GET,POST,PUT,DELETE", // Allow all necessary HTTP methods
+    credentials: true, // Allow credentials (cookies, authorization headers)
   })
 );
 app.use(express.json());
