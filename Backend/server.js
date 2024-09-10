@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(
   cors({
-    origin: ["note-cloud-frontend-87va2xqy9-tejas-pokales-projects.vercel.app"],
+    origin: ["https://note-cloud-frontend-alpha.vercel.app"],
     credentials: true,
   })
 );
