@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import Navbar from './Components/Navbar/Navbar';
-import { Outlet } from 'react-router';
+import { Outlet ,useLocation} from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from './Slices/authSlice';
 import Sidebar from './Components/Sidebar/Sidebar';
+import { persistor } from './store';
 
 function Layout() {
   const darkMode = useSelector((state) => state.ui.darkMode);
@@ -26,14 +27,15 @@ const handleLogout = () => {
   dispatch(logoutUser());
 // Redirect user to login page or home
   window.location.href = "/login";
+  persistor.purge();
 };
 
-
+const isNoteViewerPage = location.pathname.startsWith('/public/view');
   return (
     <>
-      <Navbar user={user} handleLogout={handleLogout} />
+     {!isNoteViewerPage && <Navbar user={user} handleLogout={handleLogout} />}
       <Outlet />
-      <Sidebar/>
+      {!isNoteViewerPage && <Sidebar/>}
     </>
   );
 }

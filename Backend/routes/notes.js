@@ -5,6 +5,7 @@ import {
   createNote,
   updateNote,
   deleteNote,
+  getNoteByIdPublic,
 } from "../controllers/notecontroller.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 
@@ -16,5 +17,6 @@ router.get("/:id", authMiddleware, getNoteById);
 router.post("/", authMiddleware, createNote);
 router.put("/:id", authMiddleware, updateNote);
 router.delete("/:id", authMiddleware, deleteNote);
+router.get("/public/view/:id", getNoteByIdPublic);
 
 export default router;

@@ -8,10 +8,11 @@ function Navbar({ user, handleLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);  // Mobile menu state
   const [authStatus, setAuthStatus] = useState(false);  // Local auth state
   const navigate = useNavigate();
-
+  console.log(user);
   // Update authStatus based on user login state
   useEffect(() => {
-    if (user) {
+    const token = localStorage.getItem('authToken');
+    if (user && token) {
       setAuthStatus(true);
     } else {
       setAuthStatus(false);
@@ -24,8 +25,7 @@ function Navbar({ user, handleLogout }) {
   // Navigation items with conditional rendering based on authStatus
   const navItems = [
     { name: 'Home', slug: '/', active: authStatus }, // Home should always be visible
-    { name: 'Create', active: authStatus }, // Create only when logged in
-    { name: 'About', slug: '/about', active: !authStatus }, // About only when not logged in
+    { name: 'About', slug: '/about', active: true }, // About only when not logged in
     { name: 'Login', slug: '/login', active: !authStatus }, // Login only when not logged in
   ];
 
@@ -119,3 +119,4 @@ function Navbar({ user, handleLogout }) {
 }
 
 export default Navbar;
+

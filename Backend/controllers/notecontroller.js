@@ -47,6 +47,19 @@ export const getNoteById = async (req, res) => {
   }
 };
 
+// Get a single note by ID for public access
+export const getNoteByIdPublic = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+    res.json(note);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // Create a new note
 export const createNote = async (req, res) => {
   try {

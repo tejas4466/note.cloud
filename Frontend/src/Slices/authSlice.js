@@ -1,4 +1,3 @@
-// src/store/slices/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../utils/axiosInstance";
 
@@ -35,7 +34,13 @@ export const logoutUser = createAsyncThunk(
     try {
       // Clear the token stored in localStorage
       localStorage.removeItem("authToken");
+
+      // Call API to logout if necessary
       await axiosInstance.post("/api/auth/logout");
+
+      // Purge persisted state on successful logout
+      persistor.purge();
+
       return true; // Indicate successful logout
     } catch (err) {
       return rejectWithValue(err.response.data); // Return error if logout fails

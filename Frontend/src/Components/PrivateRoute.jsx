@@ -4,14 +4,19 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 function PrivateRoute({ children }) {
+  // Fetch user data and authentication status from Redux state
   const user = useSelector((state) => state.auth.userData);
+  
+  // Fetch the authToken directly from localStorage
+  const token = localStorage.getItem('authToken');
 
-  if (!user) {
-    // If no user is authenticated, redirect to the login page
+  // If no user is authenticated or if the token is missing, redirect to the login page
+  if (!user || !token) {
     return <Navigate to="/login" />;
   }
 
-  return children; // If authenticated, render the children (protected route components)
+  // If authenticated and token exists, render the protected route components
+  return children;
 }
 
 export default PrivateRoute;

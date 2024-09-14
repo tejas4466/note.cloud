@@ -11,7 +11,6 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
 import { toast } from 'react-toastify';
 
 function View() {
-  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
   const { _id } = useParams();
@@ -27,7 +26,6 @@ function View() {
   }, [dispatch, _id]);
 
   const handleDelete = async () => {
-    setLoading(true);
     try {
       await dispatch(deleteNote(_id)).unwrap();
       toast.success('Note deleted successfully!', {
@@ -70,8 +68,6 @@ function View() {
           marginTop: '46px',
         },
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -85,7 +81,7 @@ function View() {
   };
 
   const handleShare = () => {
-    const shareableLink = `${window.location.origin}/view/${_id}`;
+    const shareableLink = `${window.location.origin}/public/view/${_id}`;
     navigator.clipboard.writeText(shareableLink).then(() => {
       toast.success('Note link copied to clipboard!', {
         position: 'bottom-left',
@@ -134,24 +130,24 @@ function View() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen gap-6 p-4 py-24 bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-4xl p-6 text-left rounded-lg shadow-2xl  h-[80vh] overflow-auto">
+    <div className="flex flex-col items-center w-full min-h-screen gap-6 p-4 py-24 bg-gray-100 dark:bg-gray-800">
+      <div className="w-full max-w-4xl p-6 text-left rounded-lg shadow-2xl  h-[80vh] overflow-auto bg-white dark:bg-gray-900">
         <div className="flex justify-between">
           <div>
             <h1 className="text-xl font-bold text-gray-800 sm:text-2xl dark:text-white">
               {note.title}
             </h1>
-            {userData && (
+            
               <p className="mt-1 text-xs font-medium text-blue-800 sm:text-sm dark:text-gray-400">
                 Created by {userData.username}<br/>
                 {new Date(note.createdAt).toLocaleDateString()}
               </p>
-            )}
+           
           </div>
           <div className="flex flex-wrap gap-4">
             {/* Share Icon */}
             <GiShare 
-              className="text-xl text-purple-900 cursor-pointer sm:text-2xl hover:scale-110"
+              className="text-2xl text-purple-900 cursor-pointer hover:scale-110"
               onClick={handleShare}
             />
 
@@ -159,7 +155,7 @@ function View() {
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
               <DialogTrigger asChild>
                 <FaEdit
-                  className="text-xl text-yellow-400 cursor-pointer sm:text-2xl hover:scale-110"
+                  className="text-2xl text-yellow-400 cursor-pointer hover:scale-110"
                   onClick={handleEdit}
                 />
               </DialogTrigger>
@@ -176,7 +172,7 @@ function View() {
             <AlertDialog open={isAlertDialogOpen} onOpenChange={setIsAlertDialogOpen}>
               <AlertDialogTrigger asChild>
                 <RiDeleteBin6Fill
-                  className="text-xl text-red-600 cursor-pointer sm:text-2xl hover:scale-110"
+                  className="text-2xl text-red-600 cursor-pointer hover:scale-110"
                 />
               </AlertDialogTrigger>
               <AlertDialogContent className='w-11/12 rounded-sm'>

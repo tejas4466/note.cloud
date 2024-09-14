@@ -96,41 +96,41 @@ function Create({ existingNote, onNoteAdded }) {
   };
 
   return (
-    <DialogContent className="w-11/12 h-[90vh] dark:bg-gray-100 rounded">
+    <DialogContent className="w-11/12 h-[90vh] rounded bg-gray-100">
       <DialogHeader>
-        <DialogTitle className="text-2xl text-center dark:text-gray-200">
+        <DialogTitle className="text-2xl text-center text-black">
           {existingNote ? 'Update Note' : 'Create a Note'}
         </DialogTitle>
       </DialogHeader>
-      <form onSubmit={handleSubmit(onSubmit)} className="p-0 rounded-lg sm:p-6 md:p-2 dark:bg-gray-600">
+      <form onSubmit={handleSubmit(onSubmit)} className="p-0 rounded-lg sm:p-6 md:p-2 ">
         <div className="mb-6">
-          <label htmlFor="title" className="block mb-2 font-bold text-gray-700 dark:text-gray-300">
+          <label htmlFor="title" className="block mb-2 font-bold text-gray-700 ">
             Title:
           </label>
           <input 
             type="text" 
             id="title" 
             {...register('title', { required: 'Title is required' })}
-            className="w-full p-3 border-2 rounded dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 sm:p-4"
+            className="w-full p-3 text-black border-2 rounded sm:p-4"
             placeholder="Give a title to your note"
           />
           {errors.title && <p className="text-red-500">{errors.title.message}</p>}
         </div>
         <div className="mb-6">
-          <label htmlFor="content" className="block mb-2 font-bold text-gray-700 dark:text-gray-300">
+          <label htmlFor="content" className="block mb-2 font-bold text-gray-700 ">
             Content:
           </label>
           <textarea 
             id="content"
             {...register('content', { required: 'Content is required' })}
-            className="w-full h-40 p-3 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 sm:h-56 sm:p-4"
+            className="w-full h-40 p-3 text-black border border-gray-300 rounded sm:h-56 sm:p-4"
             placeholder="Write your note here"
           ></textarea>
           {errors.content && <p className="text-red-500">{errors.content.message}</p>}
         </div>
         <div className="flex justify-center">
           <button
-            className="w-full px-4 py-2 text-white bg-[rgb(42,13,108)] rounded hover:bg-[rgb(51,14,137)] dark:bg-purple-700 dark:hover:bg-purple-800 sm:px-6 sm:py-3"
+            className="w-full px-4 py-2 text-white bg-[rgb(42,13,108)] rounded sm:px-6 sm:py-3"
             type="submit"
           >
             {existingNote ? 'Save Changes' : 'Add Note'}
