@@ -70,7 +70,7 @@ function Home() {
             {notes.map((note) => (
               <div
                 key={note._id}
-                className="flex flex-col justify-between p-4 my-auto bg-purple-200 rounded shadow-lg cursor-pointer dark:bg-gray-900 dark:opacity-90 hover:shadow-lg hover:shadow-[rgb(74,52,125)] dark:hover:shadow-xl dark:hover:shadow-gray-900"
+                className="flex flex-col justify-between p-4 my-auto bg-purple-200 rounded shadow-lg cursor-pointer dark:bg-gray-900 dark:opacity-90"
               >
                 <p className="overflow-hidden text-xl font-semibold text-gray-800 dark:text-white text-ellipsis">{note.title}</p>
                 <Link
