@@ -75,7 +75,7 @@ function Home() {
                 <p className="overflow-hidden text-xl font-semibold text-gray-800 dark:text-white text-ellipsis">{note.title}</p>
                 <Link
                   to={`/view/${note._id}`}
-                  className="block px-6 py-2 mt-4 text-center text-white  rounded hover:bg-[rgb(44,17,106)] bg-[rgb(42,15,103)] dark:bg-purple-800 dark:hover:bg-purple-600"
+                  className="block px-6 py-2 mt-4 text-center text-white  rounded hover:bg-[rgb(44,17,106)] bg-[rgb(42,15,103)] dark:bg-purple-600"
                 >
                   View
                 </Link>
