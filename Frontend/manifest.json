@@ -1,6 +1,6 @@
 {
     "name": "note.cloud",
-    "short_name": "NoteCloud",
+    "short_name": "note.cloud",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
