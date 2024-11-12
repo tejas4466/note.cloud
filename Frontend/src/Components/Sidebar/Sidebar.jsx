@@ -9,7 +9,7 @@ const Sidebar = () => {
      </div>
         <div className="hover:scale-110">
       <a
-        href="https://www.linkedin.com/in/tejas-pokale-5047061b3/"
+        href="https://www.linkedin.com/in/prathamesh-mahore-62b983259/"
         target="_blank"
         rel="noopener noreferrer"
         className="text-xl text-blue-600"

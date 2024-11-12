@@ -41,3 +41,4 @@ const isNoteViewerPage = location.pathname.startsWith('/public/view');
 }
 
 export default Layout;
+

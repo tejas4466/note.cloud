@@ -53,7 +53,7 @@ export const loginUser = async (req, res) => {
       },
     });
   } catch (err) {
-    // Handle any errors that occur
+    // Handle any errors that occured
     res.status(500).json({ message: err.message });
   }
 };
