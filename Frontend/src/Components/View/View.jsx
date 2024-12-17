@@ -130,19 +130,17 @@ function View() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen gap-6 p-4 py-24 bg-gray-100 dark:bg-gray-800">
-      <div className="w-full max-w-4xl p-6 text-left rounded-lg shadow-2xl  h-[80vh] overflow-auto bg-white dark:bg-gray-900">
+    <div className="flex flex-col items-center w-full min-h-screen gap-6 p-4 py-24 bg-white dark:bg-black">
+      <div className="w-full max-w-4xl p-6 text-left rounded-lg shadow-2xl h-[80vh] overflow-auto bg-white dark:bg-black dark:border-gray-500 dark:border">
         <div className="flex justify-between">
-          <div>
-            <h1 className="text-xl font-bold text-gray-800 sm:text-2xl dark:text-white">
+          <div className='text-blue-600'>
+            <h1 className="text-xl text-black font-bol sm:text-2x dark:text-white">
               {note.title}
             </h1>
-            
-              <p className="mt-1 text-xs font-medium text-blue-800 sm:text-sm dark:text-gray-400">
-                Created by {userData.username}<br/>
-                {new Date(note.createdAt).toLocaleDateString()}
-              </p>
-           
+            <p className="mt-1 text-xs font-medium">
+              Created by {userData.username}<br/>
+              {new Date(note.createdAt).toLocaleDateString()}
+            </p>
           </div>
           <div className="flex flex-wrap gap-4">
             {/* Share Icon */}
@@ -159,7 +157,7 @@ function View() {
                   onClick={handleEdit}
                 />
               </DialogTrigger>
-              <DialogContent className="w-full h-[90vh]">
+              <DialogContent className="w-full h-[90vh] bg-white dark:bg-gray-800">
                 <Create
                   existingNote={note}
                   onNoteAdded={handleNoteUpdated}
@@ -175,16 +173,16 @@ function View() {
                   className="text-2xl text-red-600 cursor-pointer hover:scale-110"
                 />
               </AlertDialogTrigger>
-              <AlertDialogContent className='w-11/12 rounded-sm'>
+              <AlertDialogContent className='w-11/12 bg-white rounded-sm dark:bg-black dark:border dark:border-gray-500'>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you sure you want to delete this note?</AlertDialogTitle>
-                  <AlertDialogDescription className='text-black'>
+                  <AlertDialogTitle className="text-black dark:text-white">Are you sure you want to delete this note?</AlertDialogTitle>
+                  <AlertDialogDescription className='text-black dark:text-white'>
                     This action cannot be undone. Once deleted, your note will be lost.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
+                  <AlertDialogCancel className="text-black dark:text-white">Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete} className="text-white bg-red-600 hover:bg-red-700">
                     Delete
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -192,7 +190,7 @@ function View() {
             </AlertDialog>
           </div>
         </div>
-        <p className="mt-4 text-sm text-gray-700 sm:text-lg dark:text-gray-300">
+        <p className="mt-4 text-sm text-black sm:text-lg dark:text-white">
           {note.content}
         </p>
       </div>

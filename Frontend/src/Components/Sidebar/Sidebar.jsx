@@ -3,13 +3,13 @@ import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
 const Sidebar = () => {
   return (
-    <div className="fixed left-0 z-30 flex flex-col items-center justify-center p-2 space-y-4 bg-purple-200 rounded-r shadow-lg bottom-4 md:left-0 lg:left-0 xl:left-0">
+    <div className="fixed left-0 z-30 flex flex-col items-center justify-center p-2 space-y-4 bg-black border-gray-400 rounded-r shadow-lg dark:border-r dark:border-y bottom-4 md:left-0 lg:left-0 xl:left-0">
       <div className="hover:scale-110"> 
         <DarkModeToggle />
      </div>
         <div className="hover:scale-110">
       <a
-        href="https://www.linkedin.com/in/prathamesh-mahore-62b983259/"
+        href="https://www.linkedin.com/in/tejas-pokale-5047061b3/"
         target="_blank"
         rel="noopener noreferrer"
         className="text-xl text-blue-600"

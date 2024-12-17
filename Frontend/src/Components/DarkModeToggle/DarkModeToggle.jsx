@@ -18,8 +18,8 @@ function DarkModeToggle() {
       onChange={handleToggle}
       size={28}
       style={{ display: 'flex', alignItems: 'center' }}
-      moonColor="black" // Keep moon color white
-      sunColor="black" // Keep sun color white
+      moonColor="white" // Keep moon color white
+      sunColor="white" // Keep sun color white
       className='w-6 h-6'
     />
   );

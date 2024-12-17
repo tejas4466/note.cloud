@@ -19,7 +19,7 @@ const Profile = ({ user = {}, handleLogout }) => { // Added default value for us
       </button>
     {user &&(
       <div
-        className={` right-[-52px] absolute z-10 w-60 p-3 mt-2 text-black bg-purple-200 shadow-xl md:right-[-15px] .transition-transform .transition-opacity duration-300 ${
+        className={`right-[-52px] absolute z-10 w-60 p-3 mt-2 text-black bg-white dark:bg-black dark:text-white border border-gray-500 shadow-xl md:right-[-15px] .transition-transform .transition-opacity duration-300 ${
           isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-0'
         }`}
       >

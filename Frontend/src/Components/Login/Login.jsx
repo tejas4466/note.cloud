@@ -7,17 +7,16 @@ import Signup from '../Signup/Signup';
 import { Dialog, DialogTrigger } from '../ui/dialog';
 
 function Login() {
-
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isSignupOpen, setIsSignupOpen] = useState(false);  // State for Signup dialog
-  const [isLoading, setIsLoading] = useState(false);  // New state for loading
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCloseSignup = () => setIsSignupOpen(false);
 
   const onSubmit = async (data) => {
-    setIsLoading(true);  // Set loading to true when login starts
+    setIsLoading(true);
     try {
       const result = await dispatch(loginUser(data)).unwrap();
       if (result.token) {
@@ -28,14 +27,14 @@ function Login() {
     } catch (error) {
       console.log("An unexpected error occurred. Please try again.");
     } finally {
-      setIsLoading(false);  // Set loading to false when login process ends
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-white dark:bg-gray-800">
-      <div className="w-full max-w-lg p-8 bg-white rounded-sm shadow-lg dark:bg-gray-900">
-        <h2 className="mb-6 text-2xl font-semibold text-center text-black dark:text-white">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-white dark:bg-black">
+      <div className="w-full max-w-lg p-6 bg-white border border-gray-300 rounded-md shadow-lg md:p-8 dark:bg-black dark:border-gray-500">
+        <h2 className="mb-6 text-2xl font-semibold text-center text-gray-800 dark:text-gray-100">
           Login
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -44,26 +43,26 @@ function Login() {
             type="text"
             placeholder="Username"
             {...register('username', { required: 'Username is required' })}
-            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(42,15,103)] text-black bg-gray-100 dark:bg-gray-200"
-            disabled={isLoading}  // Disable input when loading
+            className="px-4 py-2 text-gray-800 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:text-white dark:border-gray-500"
+            disabled={isLoading}
           />
-          {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+          {errors.username && <p className="text-sm text-red-500">{errors.username.message}</p>}
 
           {/* Password Input */}
           <input
             type="password"
             placeholder="Password"
             {...register('password', { required: 'Password is required' })}
-            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(42,15,103)] text-black bg-gray-100 dark:bg-gray-200"
-            disabled={isLoading}  // Disable input when loading
+            className="px-4 py-2 text-gray-800 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:text-white dark:border-gray-500"
+            disabled={isLoading}
           />
-          {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+          {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
 
           {/* Login Button */}
           <button
             type="submit"
-            className="px-4 py-2 mt-4 text-white bg-[rgb(54,19,134)] rounded-md hover:bg-[rgb(42,15,103)] focus:outline-none focus:ring-2 focus:ring-[rgb(42,15,103)] dark:bg-purple-700 dark:hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={isLoading}  // Disable button when loading
+            className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-blue-600 dark:hover:bg-blue-700"
+            disabled={isLoading}
           >
             {isLoading ? (
               <div className="flex items-center justify-center">
@@ -73,20 +72,20 @@ function Login() {
                 </svg>
               </div>
             ) : (
-              'Login'
+              'Sign In'
             )}
           </button>
         </form>
 
         {/* Signup Section */}
-        <p className="mt-4 text-center text-black dark:text-white">
+        <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
           Don't have an account?{' '}
           <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
             <DialogTrigger asChild>
               <button
-                className="text-[rgb(46,24,97)] hover:underline dark:text-purple-300"
+                className="text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
                 onClick={() => setIsSignupOpen(true)}
-                disabled={isLoading}  // Disable button when loading
+                disabled={isLoading}
               >
                 Register
               </button>
