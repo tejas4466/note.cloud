@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware for CORS
 app.use(
   cors({
-    origin: "https://note-cloud-backend.vercel.app/",
+    origin: "https://mynotescloud.vercel.app/",
   })
 );
 app.use(express.json());
