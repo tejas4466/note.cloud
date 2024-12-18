@@ -11,11 +11,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware for CORS
-app.use(
-  cors({
-    origin: "https://mynotescloud.vercel.app/",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://mynotescloud.vercel.app/",
+//   })
+// );
+app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
